@@ -340,7 +340,8 @@ app.post("/check", async (req, res) => {
 });
 
 function start() {
-    if (!EMAIL || !PASSWORD) {
+    let pwd = fs.readFileSync('/run/secrets/anylist_pass', 'utf8').trim()
+    if (!EMAIL || !pwd) {
         console.error("Missing username or password");
         return;
     }
