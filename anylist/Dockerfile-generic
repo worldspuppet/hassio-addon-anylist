@@ -10,5 +10,10 @@ RUN npm install
 COPY run-generic.sh .
 RUN chmod a+x ./run-generic.sh
 
-CMD [ "./run-generic.sh" ]
+RUN --mount=type=secret,id=anylist_pass \
+  cat /run/secrets/anylist_pass
+
+
+
+CMD [ "/bin/sh -c 'PASSWORD=`cat /run/secrets/anylist_pass` /usr/src/app/run-generic.sh'" ]
 EXPOSE 9000
