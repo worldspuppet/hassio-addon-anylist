@@ -13,7 +13,5 @@ RUN chmod a+x ./run-generic.sh
 RUN --mount=type=secret,id=anylist_pass \
   cat /run/secrets/anylist_pass
 
-RUN /bin/sh -c 'PASSWORD=`cat /run/secrets/anylist_pass`
-
-CMD [ "./run-generic.sh" ]
+CMD [ "PASSWORD=`cat /run/secrets/anylist_pass` ./run-generic.sh" ]
 EXPOSE 9000
