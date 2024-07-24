@@ -1,6 +1,7 @@
 const AnyList = require("anylist");
 const express = require("express");
 const minimist = require("minimist");
+const fs = require('fs');
 
 const args = minimist(process.argv.slice(2));
 
@@ -12,7 +13,9 @@ const DEFAULT_LIST = args["default-list"] || process.env.DEFAULT_LIST;
 const CREDENTIALS_FILE = args["credentials-file"] || process.env.CREDENTIALS_FILE;
 
 async function initialize(onInitialized) {
-    let any = new AnyList({email: EMAIL, password: PASSWORD, credentialsFile: CREDENTIALS_FILE});
+    let pwd = fs.readFileSync('/run/secrets/anylist_pass', 'utf8').trim()
+    
+    let any = new AnyList({email: EMAIL, password: pwd, credentialsFile: CREDENTIALS_FILE});
     await any.login(false);
     await any.getLists();
     return await onInitialized(any);
