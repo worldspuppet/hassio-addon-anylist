@@ -1,4 +1,4 @@
-FROM arm32v7/node:18-alpine
+FROM amd64/node:18-alpine
 
 WORKDIR /anylist
 
